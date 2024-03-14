@@ -1,27 +1,42 @@
 local lsp_zero = require('lsp-zero')
 
+local cmp_nvim_lsp = require "cmp_nvim_lsp"
+
+require("lspconfig").clangd.setup {
+  on_attach = on_attach,
+  capabilities = cmp_nvim_lsp.default_capabilities(),
+  cmd = {
+    "clangd",
+    "--offset-encoding=utf-16",
+    "--cross-file-rename",
+  },
+}
+
+require 'lspconfig'.glsl_analyzer.setup{}
+
 lsp_zero.on_attach(function(client, bufnr)
-  local opts = {buffer = bufnr, remap = false}
+    local opts = {buffer = bufnr, remap = false}
 
-  local cfg = {
-      hint_prefix = "🤓 ",
-      floating_window = true,
-      select_signature_key = "<C-n>"
-  }
-  require "lsp_signature".on_attach(cfg, bufnr)
+    
+    local cfg = {
+        hint_prefix = "🤓 ",
+        floating_window = true,
+        select_signature_key = "<C-n>"
+    }
+    require "lsp_signature".on_attach(cfg, bufnr)
 
-  vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
-  vim.keymap.set("n", "gi", function() vim.lsp.buf.declaration() end, opts)
-  vim.keymap.set("n", "c", function() vim.lsp.buf.signature_help() end, opts)
-  vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
-  vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
-  vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
-  vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
-  vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
-  vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
-  vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
-  vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
-  vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+    vim.keymap.set("n", "gd", function() vim.lsp.buf.definition() end, opts)
+    vim.keymap.set("n", "gi", function() vim.lsp.buf.declaration() end, opts)
+    vim.keymap.set("n", "c", function() vim.lsp.buf.signature_help() end, opts)
+    vim.keymap.set("n", "K", function() vim.lsp.buf.hover() end, opts)
+    vim.keymap.set("n", "<leader>vws", function() vim.lsp.buf.workspace_symbol() end, opts)
+    vim.keymap.set("n", "<leader>vd", function() vim.diagnostic.open_float() end, opts)
+    vim.keymap.set("n", "[d", function() vim.diagnostic.goto_next() end, opts)
+    vim.keymap.set("n", "]d", function() vim.diagnostic.goto_prev() end, opts)
+    vim.keymap.set("n", "<leader>vca", function() vim.lsp.buf.code_action() end, opts)
+    vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
+    vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
+    vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
 end)
 
 lsp_zero.format_on_save({
@@ -38,7 +53,7 @@ lsp_zero.format_on_save({
 -- read this: https://github.com/VonHeikemen/lsp-zero.nvim/blob/v3.x/doc/md/guides/integrate-with-mason-nvim.md
 require('mason').setup({})
 require('mason-lspconfig').setup({
-  ensure_installed = {'pyright', 'lua_ls', 'tsserver', 'rust_analyzer'},
+  ensure_installed = {'glsl_analyzer','pyright', 'lua_ls', 'tsserver', 'rust_analyzer'},
   handlers = {
     lsp_zero.default_setup,
     lua_ls = function()

@@ -89,6 +89,11 @@ _G.packer_plugins = {
     path = "/home/droon/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp",
     url = "https://github.com/hrsh7th/cmp-nvim-lsp"
   },
+  ["copilot.vim"] = {
+    loaded = true,
+    path = "/home/droon/.local/share/nvim/site/pack/packer/start/copilot.vim",
+    url = "https://github.com/github/copilot.vim"
+  },
   ["flexoki-neovim"] = {
     loaded = true,
     path = "/home/droon/.local/share/nvim/site/pack/packer/start/flexoki-neovim",

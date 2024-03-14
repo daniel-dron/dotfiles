@@ -30,6 +30,7 @@ return require('packer').startup(function(use)
     use('nyoom-engineering/nyoom.nvim')
     use('jqno/tranquility.nvim')
     use('alligator/accent.vim')
+    use('github/copilot.vim')
     use {
         "ray-x/lsp_signature.nvim",
     }
